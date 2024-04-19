@@ -20,6 +20,7 @@ model Transaction {
   description        String?
   amount             Int
   TransactionHistory TransactionHistory?
+  status             TransactionStatus   @default(PENDING)
 }
 
 model TransactionHistory {
@@ -27,4 +28,10 @@ model TransactionHistory {
   transaction    Transaction @relation(fields: [transaction_id], references: [id])
   transaction_id String      @unique
   transferred_in DateTime
+}
+
+enum TransactionStatus {
+  ERRORED
+  COMPLETED
+  PENDING
 }
